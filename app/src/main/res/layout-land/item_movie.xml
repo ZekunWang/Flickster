@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingTop="@dimen/image_vertical_padding"
+    android:paddingBottom="@dimen/image_vertical_padding"
+    android:background="@color/item_view_background"
+    android:id="@+id/relativeLayout">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivMovieImage"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        tools:src="@mipmap/ic_launcher"
+        android:layout_marginLeft="@dimen/landscape_image_horizontal_margin"
+        android:layout_marginRight="@dimen/landscape_image_horizontal_margin"/>   <!--tools:src will not run -->
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/portrait_image_horizontal_margin"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:text="The Legend of Tarzan"
+        android:id="@+id/tvTitle"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/portrait_image_horizontal_margin"
+        android:layout_marginEnd="@dimen/landscape_image_horizontal_margin"
+        android:ellipsize="end"
+        android:minLines="2"
+        android:maxLines="2"
+        android:textColor="@color/item_view_text"
+        android:background="@color/item_view_text_background"
+        android:layout_toEndOf="@+id/ivMovieImage" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/portrait_image_horizontal_margin"
+        android:paddingRight="@dimen/portrait_image_horizontal_margin"
+        android:paddingBottom="@dimen/portrait_image_horizontal_margin"
+        tools:text="Tarzan, having acclimated to life in London, is called back to his former home in the jungle to investigate the activities at a mining encampment."
+        android:id="@+id/tvOverview"
+        android:layout_below="@+id/tvTitle"
+        android:layout_marginEnd="@dimen/landscape_image_horizontal_margin"
+        android:ellipsize="end"
+        android:minLines="4"
+        android:maxLines="4"
+        android:textColor="@color/item_view_text"
+        android:background="@color/item_view_text_background"
+        android:layout_toEndOf="@+id/ivMovieImage" />
+
+</RelativeLayout>

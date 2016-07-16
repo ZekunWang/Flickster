@@ -1,13 +1,16 @@
 package com.zekunwang.flickster;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -20,18 +23,21 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class MovieDetailActivity extends Activity {
 
+    int position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
+        ImageView ivButtonImage = (ImageView) findViewById(R.id.ivButtonImage);
         ImageView ivImage = (ImageView) findViewById(R.id.ivMovieImage);
         TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
         TextView tvReleaseDate = (TextView) findViewById(R.id.tvReleaseDate);
         RatingBar rbVote = (RatingBar) findViewById(R.id.rbVote);
         TextView tvOverview = (TextView) findViewById(R.id.tvOverview);
 
-        int position = getIntent().getIntExtra("position", 0);
+        position = getIntent().getIntExtra("position", 0);
         Movie movie = MovieActivity.movies.get(position);
 
         tvTitle.setText(movie.getOriginalTitle());
@@ -42,20 +48,41 @@ public class MovieDetailActivity extends Activity {
 
         // use Picasso to fetch image from url and put into image view
         String urlImage = null;
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        int width = metrics.widthPixels;
         int placeholderImage = R.drawable.movie_placeholder_landscape;
+
+        //viewHolder.ivImage.setImageResource(placeholderImage);
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             urlImage = movie.getBackdropPath();
         } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             urlImage = movie.getPosterPath();
             placeholderImage = R.drawable.movie_placeholder_portrait;
+            width = dpToPx(167);
         }
         //viewHolder.ivImage.setImageResource(placeholderImage);
-        Picasso.with(this).load(urlImage)
+        Picasso.with(this).load(urlImage).resize(width, 0)
                 .placeholder(placeholderImage)
                 .into(ivImage);
+
+        ivButtonImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MovieDetailActivity.this, YoutubeActivity.class);
+                intent.putExtra("position", position);
+                startActivity(intent);
+            }
+        });
+        ivButtonImage.setVisibility(View.VISIBLE);
     }
 
+    // convert dp to px
+    private int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

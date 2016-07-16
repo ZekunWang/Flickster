@@ -6,12 +6,27 @@
     android:background="@color/item_view_background"
     tools:context="com.zekunwang.flickster.MovieDetailActivity">
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/item_detail_backdrop_height"
-        android:id="@+id/ivMovieImage"
-        android:background="@color/item_view_text_background"
-        tools:src="@mipmap/ic_launcher"/>   <!--tools:src will not run -->
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivMovieImage"
+            android:background="@color/item_view_text_background"
+            tools:src="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:id="@+id/ivButtonImage"
+            android:src="@drawable/play_button"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <!--tools:src will not run -->
 
     <TextView
         android:layout_width="fill_parent"

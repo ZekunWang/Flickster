@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zwang_000 on 7/13/2016.
@@ -18,6 +19,8 @@ public class Movie {
     String backdropPath;
     int voteCount;
     double voteAverage;
+    int id;
+    ArrayList<Video> videos;
 
     public Movie(JSONObject jsonObject) throws JSONException {
         this.posterPath = jsonObject.getString("poster_path");
@@ -27,6 +30,8 @@ public class Movie {
         this.backdropPath = jsonObject.getString("backdrop_path");
         this.voteCount = jsonObject.getInt("vote_count");
         this.voteAverage = jsonObject.getDouble("vote_average");
+        this.id = jsonObject.getInt("id");
+        this.videos = new ArrayList<Video>();
     }
 
     public static ArrayList<Movie> fromJSONArray(JSONArray jsonArray) {
@@ -68,5 +73,17 @@ public class Movie {
 
     public double getVoteAverage() {
         return voteAverage;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public ArrayList<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(ArrayList<Video> v) {
+        this.videos = v;
     }
 }

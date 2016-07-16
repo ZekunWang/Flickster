@@ -5,13 +5,25 @@
     android:background="@color/item_view_background"
     tools:context="com.zekunwang.flickster.MovieDetailActivity">
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="0dp"
-        android:id="@+id/ivMovieImage"
-        android:background="@color/item_view_text_background"
-        tools:src="@mipmap/ic_launcher"/>   <!--tools:src will not run -->
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivMovieImage"
+            android:background="@color/item_view_text_background"
+            tools:src="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivButtonImage"
+            android:visibility="invisible"
+            android:src="@drawable/play_button"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"

@@ -26,6 +26,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.zekunwang.flickster.MovieActivity" />
         </activity>
+        <activity
+            android:name=".YoutubeActivity"
+            android:label="@string/title_activity_youtube" >
+        </activity>
     </application>
 
 </manifest>

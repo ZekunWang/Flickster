@@ -56,7 +56,12 @@ public class MovieActivity extends Activity {
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MovieActivity.this, MovieDetailActivity.class);
+                Intent intent = null;
+                if (movies.get(position).getVoteAverage() < MovieArrayAdapter.POPULAR_VOTE) {
+                    intent = new Intent(MovieActivity.this, MovieDetailActivity.class);
+                } else {
+                    intent = new Intent(MovieActivity.this, YoutubeActivity.class);
+                }
                 intent.putExtra("position", position);
                 startActivity(intent);
             }
@@ -75,10 +80,10 @@ public class MovieActivity extends Activity {
                 JSONArray movieJsonResults = null;
                 try {
                     movieJsonResults = response.getJSONArray("results");    // get raw data from response
+                    swipeContainer.setRefreshing(false);    // disable refreshing icon
                     movies.clear(); // clear old movie data
                     movies.addAll(Movie.fromJSONArray(movieJsonResults));     // convert JSON array to model class objects
                     movieAdapter.notifyDataSetChanged();    // trigger update of data
-                    swipeContainer.setRefreshing(false);    // disable refreshing icon
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

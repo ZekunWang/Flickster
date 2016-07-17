@@ -3,8 +3,10 @@ package com.zekunwang.flickster;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -50,20 +52,26 @@ public class MovieDetailActivity extends Activity {
         String urlImage = null;
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         int width = metrics.widthPixels;
+        int height = (int) (0.5625 * width);
+
         int placeholderImage = R.drawable.movie_placeholder_landscape;
+        Drawable newDrawable = null;
 
         //viewHolder.ivImage.setImageResource(placeholderImage);
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             urlImage = movie.getBackdropPath();
+            Drawable myDrawable = getResources().getDrawable(R.drawable.movie_placeholder_landscape);
+            Bitmap b = ((BitmapDrawable) myDrawable).getBitmap();
+            newDrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(b, width, height, false));
         } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             urlImage = movie.getPosterPath();
-            placeholderImage = R.drawable.movie_placeholder_portrait;
+            newDrawable = getResources().getDrawable(R.drawable.movie_placeholder_portrait);
             width = dpToPx(167);
         }
         //viewHolder.ivImage.setImageResource(placeholderImage);
         Picasso.with(this).load(urlImage).resize(width, 0)
-                .placeholder(placeholderImage)
+                .placeholder(newDrawable)
                 .into(ivImage);
 
         ivButtonImage.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +82,6 @@ public class MovieDetailActivity extends Activity {
                 startActivity(intent);
             }
         });
-        ivButtonImage.setVisibility(View.VISIBLE);
     }
 
     // convert dp to px

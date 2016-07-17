@@ -33,19 +33,25 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     private final int VIEW_TYPE_COUNT = 2;
     Movie movie;
     int type;
+    int height;
+    Drawable newDrawable;
+    int orientation;
 
-    private static class ViewHolderPopular {
-        ImageView ivButtonView;
-        ImageView ivImage;
-    }
-    private static class ViewHolderRegular {
-        TextView tvTitle;
-        TextView tvOverview;
-        ImageView ivImage;
-    }
 
     public MovieArrayAdapter(Context context, List<Movie> movies) {
         super(context, 0, movies);
+
+        // use Picasso to fetch image from url and put into image view
+        orientation = getContext().getResources().getConfiguration().orientation;
+        // get width of current metric
+        DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
+        int width = metrics.widthPixels;
+        height = (int) (0.5625 * width);
+
+        Drawable myDrawable = getContext().getResources().getDrawable(R.drawable.movie_placeholder_landscape);
+        Bitmap b = ((BitmapDrawable) myDrawable).getBitmap();
+        newDrawable = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(b, width, height, false));
+
     }
 
     @Override
@@ -57,6 +63,17 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     @Override
     public int getViewTypeCount() {
         return VIEW_TYPE_COUNT;
+
+    }
+
+    private static class ViewHolderPopular {
+        ImageView ivButtonView;
+        ImageView ivImage;
+    }
+    private static class ViewHolderRegular {
+        TextView tvTitle;
+        TextView tvOverview;
+        ImageView ivImage;
     }
 
     @Override
@@ -73,22 +90,24 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
             if (type == REGULAR) {  // save view for REGULAR
                 ViewHolderRegular viewHolderRegular = new ViewHolderRegular();
                 convertView = inflater.inflate(R.layout.item_movie, parent, false);
-                // viewHolder cachees views of the item view
+
                 viewHolderRegular.ivImage = (ImageView) convertView.findViewById(R.id.ivMovieImage);
                 viewHolderRegular.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
                 viewHolderRegular.tvOverview = (TextView) convertView.findViewById(R.id.tvOverview);
+
+                showRegular(viewHolderRegular);
                 convertView.setTag(viewHolderRegular); // cache viewHolder for this item view
             } else {  // save view for POPULAR
                 ViewHolderPopular viewHolderPopular = new ViewHolderPopular();
                 convertView = inflater.inflate(R.layout.item_movie_popular, parent, false);
-                // viewHolder cachees views of the item view
+
                 viewHolderPopular.ivImage = (ImageView) convertView.findViewById(R.id.ivMovieImage);
                 viewHolderPopular.ivButtonView = (ImageView) convertView.findViewById(R.id.ivButtonImage);
+
+                showPopular(viewHolderPopular, convertView);
                 convertView.setTag(viewHolderPopular); // cache viewHolder for this item view
             }
-        }
-
-        if (type == REGULAR) {
+        } else if (type == REGULAR) {
                 ViewHolderRegular viewHolderRegular = (ViewHolderRegular) convertView.getTag();
                 showRegular(viewHolderRegular);
         } else {
@@ -103,8 +122,6 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         viewHolderRegular.tvTitle.setText(movie.getOriginalTitle());
         viewHolderRegular.tvOverview.setText(movie.getOverview());
 
-        // use Picasso to fetch image from url and put into image view
-        int orientation = getContext().getResources().getConfiguration().orientation;
         String urlImage = movie.getPosterPath();
         int placeholderImage = R.drawable.movie_placeholder_portrait;
         int width = 167;
@@ -121,18 +138,8 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         // use Picasso to fetch image from url and put into image view
         String urlImage = movie.getBackdropPath();
 
-        // get width of current metric
-        DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
-        int width = metrics.widthPixels;
-        int height = (int)(0.5625 * width);
-
-        Drawable myDrawable = getContext().getResources().getDrawable(R.drawable.movie_placeholder_landscape);
-        Bitmap b = ((BitmapDrawable)myDrawable).getBitmap();
-        Drawable newDrawable = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(b, width, height, true));
-
-        RelativeLayout relativeLayout = (RelativeLayout)  convertView.findViewById(R.id.popularView);
+        RelativeLayout relativeLayout = (RelativeLayout) convertView.findViewById(R.id.popularView);
         relativeLayout.setMinimumHeight(height);
-
         //viewHolder.ivImage.setImageResource(placeholderImage);
         Picasso.with(getContext()).load(urlImage)
                 .fit()

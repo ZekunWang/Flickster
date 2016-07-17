@@ -70,7 +70,9 @@ public class MovieActivity extends Activity {
     }
 
     private void refreshMovies(int page) {
-
+        if (swipeContainer != null) {
+            swipeContainer.setRefreshing(false);    // disable refreshing icon
+        }
         String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -80,7 +82,6 @@ public class MovieActivity extends Activity {
                 JSONArray movieJsonResults = null;
                 try {
                     movieJsonResults = response.getJSONArray("results");    // get raw data from response
-                    swipeContainer.setRefreshing(false);    // disable refreshing icon
                     movies.clear(); // clear old movie data
                     movies.addAll(Movie.fromJSONArray(movieJsonResults));     // convert JSON array to model class objects
                     movieAdapter.notifyDataSetChanged();    // trigger update of data

@@ -64,7 +64,7 @@ public class Movie {
     }
 
     public String getBackdropPath() {
-        return "https://image.tmdb.org/t/p/w1280" + backdropPath;
+        return "https://image.tmdb.org/t/p/w780" + backdropPath;
     }
 
     public int getVoteCount() {

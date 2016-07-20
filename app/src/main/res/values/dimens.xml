@@ -2,9 +2,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
-    <dimen name="portrait_image_horizontal_margin">20dp</dimen>
+    <dimen name="listview_margin">18dp</dimen>
     <dimen name="landscape_image_horizontal_margin">10dp</dimen>
-    <dimen name="image_vertical_padding">15dp</dimen>
     <dimen name="listview_divider">2px</dimen>
     <dimen name="item_detail_backdrop_height">202dp</dimen>
 </resources>

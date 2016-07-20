@@ -1,14 +1,12 @@
 package com.zekunwang.flickster;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,9 +21,10 @@ import com.zekunwang.flickster.models.Movie;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 
-public class MovieDetailActivity extends Activity {
+public class MovieDetailActivity extends ActionBarActivity {
 
     int position;
+    private final double RATIO = 1 / 4.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +38,20 @@ public class MovieDetailActivity extends Activity {
         RatingBar rbVote = (RatingBar) findViewById(R.id.rbVote);
         TextView tvOverview = (TextView) findViewById(R.id.tvOverview);
 
+        // get width of current metric
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        int width = metrics.widthPixels;
+        int height = (int) (0.5625 * width);
+        // popular drawable
+        Drawable drawableLandscape = getResources().getDrawable(R.drawable.movie_placeholder_landscape);
+        Drawable drawablePortrait = getResources().getDrawable(R.drawable.movie_placeholder_portrait);
+        Bitmap bitmapLandscape = ((BitmapDrawable) drawableLandscape).getBitmap();
+        Bitmap bitmapPortrait = ((BitmapDrawable) drawablePortrait).getBitmap();
+        Drawable drawableLandscapeRegular = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmapLandscape, width, height, false));
+        Drawable drawablePortraitRegular = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmapPortrait, (int)(width * RATIO), (int)(width / 0.668 * RATIO), false));
+        // use Picasso to fetch image from url and put into image view
+        int orientation = getResources().getConfiguration().orientation;
+
         position = getIntent().getIntExtra("position", 0);
         Movie movie = MovieActivity.movies.get(position);
 
@@ -47,33 +60,26 @@ public class MovieDetailActivity extends Activity {
         rbVote.setRating((float) movie.getVoteAverage());
         tvOverview.setText(movie.getOverview());
 
-
-        // use Picasso to fetch image from url and put into image view
-        String urlImage = null;
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        int width = metrics.widthPixels;
-        int height = (int) (0.5625 * width);
-
-        int placeholderImage = R.drawable.movie_placeholder_landscape;
-        Drawable newDrawable = null;
-
-        //viewHolder.ivImage.setImageResource(placeholderImage);
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            urlImage = movie.getBackdropPath();
-            Drawable myDrawable = getResources().getDrawable(R.drawable.movie_placeholder_landscape);
-            Bitmap b = ((BitmapDrawable) myDrawable).getBitmap();
-            newDrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(b, width, height, false));
-        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        String urlImage = movie.getBackdropPath();
+        Drawable placeholderImage = drawableLandscapeRegular;
+        int widthRegular = width;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             urlImage = movie.getPosterPath();
-            newDrawable = getResources().getDrawable(R.drawable.movie_placeholder_portrait);
-            width = dpToPx(167);
-        }
-        //viewHolder.ivImage.setImageResource(placeholderImage);
-        Picasso.with(this).load(urlImage).resize(width, 0)
-                .placeholder(newDrawable)
-                .into(ivImage);
+            placeholderImage = drawablePortraitRegular;
+            widthRegular = (int)(width * RATIO);
 
+
+            //viewHolder.ivImage.setImageResource(placeholderImage);
+            Picasso.with(this).load(urlImage).resize(widthRegular, 0)
+                    .placeholder(placeholderImage)
+                    .transform(new RoundedCornersTransformation(10, 10))
+                    .into(ivImage);
+        } else {
+            //viewHolder.ivImage.setImageResource(placeholderImage);
+            Picasso.with(this).load(urlImage).resize(widthRegular, 0)
+                    .placeholder(placeholderImage)
+                    .into(ivImage);
+        }
         ivButtonImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,13 +88,6 @@ public class MovieDetailActivity extends Activity {
                 startActivity(intent);
             }
         });
-    }
-
-    // convert dp to px
-    private int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return px;
     }
 
     @Override
@@ -106,9 +105,6 @@ public class MovieDetailActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

@@ -34,15 +34,15 @@ The following **bonus** features are implemented:
 The following **additional** features are implemented:
 
 * [x] Customize content length with ellipsize and maxLines
-* [x] Implement consistent layout with all devices using a dp-to-px converter
+* [x] Implement consistent layout with all devices using calculation from device size and dp-to-px method
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-![Video Walkthrough](Flickster_Portrait_v2.gif)
+![Video Walkthrough](Flickster_Portrait_v3.gif)
 
-![Video Walkthrough](Flickster_Landscape_v2.gif)
+![Video Walkthrough](Flickster_Landscape_v3.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

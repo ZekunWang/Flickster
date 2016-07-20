@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.zekunwang.flickster"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     // async http library, will import cz.msebera.android.httpclient.Header;
     compile 'com.loopj.android:android-async-http:1.4.9'
     // library to deal with pictures
@@ -31,4 +31,11 @@ dependencies {
     compile 'jp.wasabeef:picasso-transformations:2.1.0'
     // for playing youtube videos
     compile files('libs/YouTubeAndroidPlayerApi.jar')
+    //compile 'com.android.support:appcompat-v7:24.0.0-alpha1'
+    //compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    // for using Butterknife library
+    //classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    //compile 'com.jakewharton:butterknife:8.2.1'
+    //apt 'com.jakewharton:butterknife-compiler:8.2.1'
 }

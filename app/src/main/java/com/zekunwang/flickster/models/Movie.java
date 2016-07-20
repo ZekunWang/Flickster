@@ -5,7 +5,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by zwang_000 on 7/13/2016.
@@ -48,7 +47,7 @@ public class Movie {
     }
 
     public String getPosterPath() {
-        return "https://image.tmdb.org/t/p/w500" + posterPath;
+        return "https://image.tmdb.org/t/p/w342" + posterPath;
     }
 
     public String getOriginalTitle() {

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:paddingTop="@dimen/image_vertical_padding"
-    android:paddingBottom="@dimen/image_vertical_padding"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/listview_margin"
+    android:paddingBottom="@dimen/listview_margin"
+    android:paddingLeft="@dimen/listview_margin"
+    android:paddingRight="@dimen/listview_margin"
     android:id="@+id/relativeLayout"
     android:background="@color/item_view_background">
 
@@ -11,44 +14,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ivMovieImage"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         tools:src="@mipmap/ic_launcher"
-        android:layout_marginLeft="@dimen/portrait_image_horizontal_margin"
-        android:layout_marginRight="@dimen/portrait_image_horizontal_margin"/>   <!--tools:src will not run -->
+        android:layout_marginRight="@dimen/listview_margin"/>   <!--tools:src will not run -->
 
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/portrait_image_horizontal_margin"
-        android:layout_marginTop="@dimen/portrait_image_horizontal_margin"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:text="The Legend of Tarzan"
-        android:id="@+id/tvTitle"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="@dimen/portrait_image_horizontal_margin"
-        android:ellipsize="end"
-        android:minLines="2"
-        android:maxLines="2"
-        android:textColor="@color/item_view_text"
-        android:background="@color/item_view_text_background"
-        android:layout_toEndOf="@+id/ivMovieImage" />
+        android:layout_gravity="center">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/portrait_image_horizontal_margin"
-        android:paddingRight="@dimen/portrait_image_horizontal_margin"
-        android:paddingBottom="@dimen/portrait_image_horizontal_margin"
-        tools:text="Tarzan, having acclimated to life in London, is called back to his former home in the jungle to investigate the activities at a mining encampment."
-        android:id="@+id/tvOverview"
-        android:layout_below="@+id/tvTitle"
-        android:layout_marginEnd="@dimen/portrait_image_horizontal_margin"
-        android:ellipsize="end"
-        android:minLines="5"
-        android:maxLines="5"
-        android:textColor="@color/item_view_text"
-        android:background="@color/item_view_text_background"
-        android:layout_toEndOf="@+id/ivMovieImage" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/listview_margin"
+            android:paddingRight="@dimen/listview_margin"
+            android:paddingTop="@dimen/listview_margin"
+            android:paddingBottom="@dimen/landscape_image_horizontal_margin"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            tools:text="The Legend of Tarzan"
+            android:id="@+id/tvTitle"
+            android:ellipsize="end"
+            android:minLines="2"
+            android:maxLines="2"
+            android:textColor="@color/item_view_text"
+            android:background="@color/item_view_text_background" />
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/listview_margin"
+            android:paddingRight="@dimen/listview_margin"
+            android:paddingBottom="@dimen/listview_margin"
+            tools:text="Tarzan, having acclimated to life in London, is called back to his former home in the jungle to investigate the activities at a mining encampment."
+            android:id="@+id/tvOverview"
+            android:ellipsize="end"
+            android:minLines="4"
+            android:maxLines="4"
+            android:textColor="@color/item_view_text"
+            android:background="@color/item_view_text_background" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:padding="@dimen/listview_margin"
     android:background="@color/item_view_background"
     tools:context="com.zekunwang.flickster.MovieDetailActivity">
 
@@ -13,7 +14,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ivMovieImage"
-            android:background="@color/item_view_text_background"
             tools:src="@mipmap/ic_launcher" />
 
         <ImageView
@@ -34,9 +34,9 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/portrait_image_horizontal_margin"
-            android:layout_marginLeft="@dimen/portrait_image_horizontal_margin"
-            android:layout_marginRight="@dimen/portrait_image_horizontal_margin"
+            android:layout_marginTop="@dimen/listview_margin"
+            android:layout_marginLeft="@dimen/listview_margin"
+            android:layout_marginRight="@dimen/listview_margin"
             android:textAppearance="?android:attr/textAppearanceLarge"
             tools:text="The Legend of Tarzan"
             android:textColor="@color/item_view_text"
@@ -46,8 +46,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/landscape_image_horizontal_margin"
-            android:layout_marginLeft="@dimen/portrait_image_horizontal_margin"
-            android:layout_marginRight="@dimen/portrait_image_horizontal_margin"
+            android:layout_marginLeft="@dimen/listview_margin"
+            android:layout_marginRight="@dimen/listview_margin"
             tools:text="Release Date: 07-21-2016"
             android:textColor="@color/item_view_text"
             android:id="@+id/tvReleaseDate" /><!--tools:src will not run -->
@@ -56,9 +56,8 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/landscape_image_horizontal_margin"
-            android:layout_marginLeft="@dimen/portrait_image_horizontal_margin"
-            android:layout_marginRight="@dimen/portrait_image_horizontal_margin">
+            android:layout_marginLeft="@dimen/listview_margin"
+            android:layout_marginRight="@dimen/listview_margin">
 
             <RatingBar
                 android:layout_width="wrap_content"
@@ -66,21 +65,16 @@
                 tools:rating="3.3"
                 android:isIndicator="true"
                 android:id="@+id/rbVote" />
-        </LinearLayout>
-
-        <!--tools:src will not run -->
+        </LinearLayout><!--tools:src will not run -->
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/landscape_image_horizontal_margin"
-            android:layout_marginLeft="@dimen/portrait_image_horizontal_margin"
-            android:layout_marginRight="@dimen/portrait_image_horizontal_margin"
+            android:layout_marginLeft="@dimen/listview_margin"
+            android:layout_marginRight="@dimen/listview_margin"
             android:textColor="@color/item_view_text"
             tools:text="Tarzan, having acclimated to life in London, is called back to his former home in the jungle to investigate the activities at a mining encampment."
-            android:id="@+id/tvOverview" />
-
-        <!--tools:src will not run -->
+            android:id="@+id/tvOverview" /><!--tools:src will not run -->
 
     </LinearLayout>
 

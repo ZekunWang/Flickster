@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;    // async http library
 
 
-public class MovieActivity extends Activity {
+public class MovieActivity extends ActionBarActivity {
 
     static ArrayList<Movie> movies;
     MovieArrayAdapter movieAdapter;
@@ -112,9 +113,6 @@ public class MovieActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -33,9 +32,14 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     private final int VIEW_TYPE_COUNT = 2;
     Movie movie;
     int type;
+    int width;
     int height;
-    Drawable newDrawable;
     int orientation;
+    private final double RATIO_PORTRAIT = 3 / 7.0;
+    private final double RATIO_LANDSCAPE = 4 / 7.0;
+    Drawable drawableLandscapePopular;
+    Drawable drawableLandscapeRegular;
+    Drawable drawablePortraitRegular;
 
 
     public MovieArrayAdapter(Context context, List<Movie> movies) {
@@ -45,13 +49,17 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         orientation = getContext().getResources().getConfiguration().orientation;
         // get width of current metric
         DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
-        int width = metrics.widthPixels;
+        width = metrics.widthPixels;
         height = (int) (0.5625 * width);
-
-        Drawable myDrawable = getContext().getResources().getDrawable(R.drawable.movie_placeholder_landscape);
-        Bitmap b = ((BitmapDrawable) myDrawable).getBitmap();
-        newDrawable = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(b, width, height, false));
-
+        // popular drawable
+        Drawable drawableLandscape = getContext().getResources().getDrawable(R.drawable.movie_placeholder_landscape);
+        Drawable drawablePortrait = getContext().getResources().getDrawable(R.drawable.movie_placeholder_portrait);
+        Bitmap bitmapLandscape = ((BitmapDrawable) drawableLandscape).getBitmap();
+        Bitmap bitmapPortrait = ((BitmapDrawable) drawablePortrait).getBitmap();
+        drawableLandscapePopular = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmapLandscape, width, height, false));
+        drawableLandscapeRegular = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmapLandscape, (int) (width * RATIO_LANDSCAPE), (int) (height * RATIO_LANDSCAPE), false));
+        drawablePortraitRegular = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmapPortrait,
+                (int) (width * RATIO_PORTRAIT), (int) (width / 0.668 * RATIO_PORTRAIT), false));
     }
 
     @Override
@@ -114,7 +122,16 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                 ViewHolderPopular viewHolderPopular = (ViewHolderPopular) convertView.getTag();
                 showPopular(viewHolderPopular, convertView);
         }
-
+        // clear top padding if 2 regular movie together
+        if (type == REGULAR) {
+            DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+            int px = Math.round(18 * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+            if (position > 0 && getItemViewType(position - 1) == type) {
+                convertView.setPadding(px, 0, px, px);
+            } else {
+                convertView.setPadding(px, px, px, px);
+            }
+        }
         return convertView;
     }
 
@@ -123,42 +140,29 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         viewHolderRegular.tvOverview.setText(movie.getOverview());
 
         String urlImage = movie.getPosterPath();
-        int placeholderImage = R.drawable.movie_placeholder_portrait;
-        int width = 167;
+        Drawable placeholderImage = drawablePortraitRegular;
+        int widthRegular = (int)(width * RATIO_PORTRAIT);
 
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             urlImage = movie.getBackdropPath();
-            placeholderImage = R.drawable.movie_placeholder_landscape;
-            width = 414;
+            placeholderImage = drawableLandscapeRegular;
+            widthRegular = (int)(width * RATIO_LANDSCAPE);
         }
-        loadImageView(urlImage, width, placeholderImage, viewHolderRegular.ivImage);
+
+        //viewHolder.ivImage.setImageResource(placeholderImage);
+        Picasso.with(getContext()).load(urlImage).resize(widthRegular, 0)
+                .placeholder(placeholderImage)
+                .transform(new RoundedCornersTransformation(10, 10))
+                .into(viewHolderRegular.ivImage);
     }
 
     private void showPopular(ViewHolderPopular viewHolderPopular, View convertView) {
         // use Picasso to fetch image from url and put into image view
         String urlImage = movie.getBackdropPath();
 
-        RelativeLayout relativeLayout = (RelativeLayout) convertView.findViewById(R.id.popularView);
-        relativeLayout.setMinimumHeight(height);
-        //viewHolder.ivImage.setImageResource(placeholderImage);
         Picasso.with(getContext()).load(urlImage)
-                .fit()
-                .placeholder(newDrawable)
+                .resize(width,height)
+                .placeholder(drawableLandscapePopular)
                 .into(viewHolderPopular.ivImage);
-    }
-
-    private void loadImageView(String urlImage, int width, int placeholderImage, ImageView ivImage) {
-        //viewHolder.ivImage.setImageResource(placeholderImage);
-        Picasso.with(getContext()).load(urlImage).resize(dpToPx(width), 0)
-                .placeholder(placeholderImage)
-                .transform(new RoundedCornersTransformation(10, 10))
-                .into(ivImage);
-    }
-
-    // convert dp to px
-    private int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return px;
     }
 }

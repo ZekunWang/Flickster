@@ -5,6 +5,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by zwang_000 on 7/13/2016.
@@ -31,6 +34,29 @@ public class Movie {
         this.voteAverage = jsonObject.getDouble("vote_average");
         this.id = jsonObject.getInt("id");
         this.videos = new ArrayList<Video>();
+    }
+
+    public static void sortByDate(List<Movie> movies) {
+        Collections.sort(movies, new Comparator<Movie>() {
+            @Override
+            public int compare(Movie m1, Movie m2) {
+                return m2.getReleaseDate().compareTo(m1.getReleaseDate());
+            }
+        });
+    }
+
+    public static void sortByVote(List<Movie> movies) {
+        Collections.sort(movies, new Comparator<Movie>() {
+            @Override
+            public int compare(Movie m1, Movie m2) {
+                double v1 = m1.getVoteAverage();
+                double v2 = m2.getVoteAverage();
+                if (v1 == v2) {
+                    return 0;
+                }
+                return v1 > v2 ? -1 : 1;
+            }
+        });
     }
 
     public static ArrayList<Movie> fromJSONArray(JSONArray jsonArray) {

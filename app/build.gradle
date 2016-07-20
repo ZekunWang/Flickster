@@ -35,7 +35,6 @@ dependencies {
     //compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:appcompat-v7:21.0.3'
     // for using Butterknife library
-    //classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-    //compile 'com.jakewharton:butterknife:8.2.1'
+    compile 'com.jakewharton:butterknife:8.2.1'
     //apt 'com.jakewharton:butterknife-compiler:8.2.1'
 }

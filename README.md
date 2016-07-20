@@ -35,6 +35,8 @@ The following **additional** features are implemented:
 
 * [x] Customize content length with ellipsize and maxLines
 * [x] Implement consistent layout with all devices using calculation from device size and dp-to-px method
+* [x] Customize actionbar with style and and sort modes
+* [x] Design app icon
 
 ## Video Walkthrough
 
@@ -55,6 +57,7 @@ Challenges encountered while building the app:
 3. Learn to use Ratingbar.
 4. Fix layout problem from using different devices.
 5. Implement Youtube video feature
+6. Customize actionbar
 
 ## Open-source libraries used
 

@@ -11,5 +11,6 @@
         android:id="@+id/lvMovies"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:divider="@null"/>
+        android:divider="@color/item_view_text_background"
+        android:dividerHeight="@dimen/listview_divider"/>
 </android.support.v4.widget.SwipeRefreshLayout>

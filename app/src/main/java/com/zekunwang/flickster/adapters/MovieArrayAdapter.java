@@ -122,16 +122,6 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                 ViewHolderPopular viewHolderPopular = (ViewHolderPopular) convertView.getTag();
                 showPopular(viewHolderPopular, convertView);
         }
-        // clear top padding if 2 regular movie together
-        if (type == REGULAR) {
-            DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-            int px = Math.round(18 * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-            if (position > 0 && getItemViewType(position - 1) == type) {
-                convertView.setPadding(px, 0, px, px);
-            } else {
-                convertView.setPadding(px, px, px, px);
-            }
-        }
         return convertView;
     }
 

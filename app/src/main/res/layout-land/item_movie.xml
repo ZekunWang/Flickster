@@ -30,7 +30,7 @@
             android:paddingRight="@dimen/listview_margin"
             android:paddingTop="@dimen/listview_margin"
             android:paddingBottom="@dimen/landscape_image_horizontal_margin"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="@dimen/title_size"
             tools:text="The Legend of Tarzan"
             android:id="@+id/tvTitle"
             android:ellipsize="end"

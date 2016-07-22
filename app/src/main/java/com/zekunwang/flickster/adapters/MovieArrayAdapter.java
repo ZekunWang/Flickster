@@ -77,6 +77,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     private static class ViewHolderPopular {
         ImageView ivButtonView;
         ImageView ivImage;
+        TextView tvTitle;
     }
     private static class ViewHolderRegular {
         TextView tvTitle;
@@ -111,8 +112,9 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
                 viewHolderPopular.ivImage = (ImageView) convertView.findViewById(R.id.ivMovieImage);
                 viewHolderPopular.ivButtonView = (ImageView) convertView.findViewById(R.id.ivButtonImage);
+                viewHolderPopular.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
 
-                showPopular(viewHolderPopular, convertView);
+                showPopular(viewHolderPopular);
                 convertView.setTag(viewHolderPopular); // cache viewHolder for this item view
             }
         } else if (type == REGULAR) {
@@ -120,7 +122,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                 showRegular(viewHolderRegular);
         } else {
                 ViewHolderPopular viewHolderPopular = (ViewHolderPopular) convertView.getTag();
-                showPopular(viewHolderPopular, convertView);
+                showPopular(viewHolderPopular);
         }
         return convertView;
     }
@@ -146,8 +148,9 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                 .into(viewHolderRegular.ivImage);
     }
 
-    private void showPopular(ViewHolderPopular viewHolderPopular, View convertView) {
+    private void showPopular(ViewHolderPopular viewHolderPopular) {
         // use Picasso to fetch image from url and put into image view
+        viewHolderPopular.tvTitle.setText(movie.getOriginalTitle());
         String urlImage = movie.getBackdropPath();
 
         Picasso.with(getContext()).load(urlImage)

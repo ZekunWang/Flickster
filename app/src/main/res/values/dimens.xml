@@ -6,4 +6,5 @@
     <dimen name="landscape_image_horizontal_margin">10dp</dimen>
     <dimen name="listview_divider">6dp</dimen>
     <dimen name="item_detail_backdrop_height">202dp</dimen>
+    <dimen name="title_size">20sp</dimen>
 </resources>

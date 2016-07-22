@@ -30,7 +30,7 @@
         android:layout_marginTop="@dimen/listview_margin"
         android:layout_marginLeft="@dimen/listview_margin"
         android:layout_marginRight="@dimen/listview_margin"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/title_size"
         tools:text="The Legend of Tarzan"
         android:textColor="@color/item_view_text"
         android:id="@+id/tvTitle" /><!--tools:src will not run -->

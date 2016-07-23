@@ -19,6 +19,8 @@ import com.zekunwang.flickster.models.Movie;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
@@ -74,15 +76,23 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
     }
 
-    private static class ViewHolderPopular {
-        ImageView ivButtonView;
-        ImageView ivImage;
-        TextView tvTitle;
+    static class ViewHolderPopular {
+        @BindView(R.id.tvTitle) TextView tvTitle;
+        @BindView(R.id.ivMovieImage) ImageView ivImage;
+        @BindView(R.id.ivButtonImage) ImageView ivButtonView;
+
+        public ViewHolderPopular(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
-    private static class ViewHolderRegular {
-        TextView tvTitle;
-        TextView tvOverview;
-        ImageView ivImage;
+    static class ViewHolderRegular {
+        @BindView(R.id.tvTitle) TextView tvTitle;
+        @BindView(R.id.ivMovieImage) ImageView ivImage;
+        @BindView(R.id.tvOverview) TextView tvOverview;
+
+        public ViewHolderRegular(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 
     @Override
@@ -97,22 +107,14 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
 
             if (type == REGULAR) {  // save view for REGULAR
-                ViewHolderRegular viewHolderRegular = new ViewHolderRegular();
                 convertView = inflater.inflate(R.layout.item_movie, parent, false);
-
-                viewHolderRegular.ivImage = (ImageView) convertView.findViewById(R.id.ivMovieImage);
-                viewHolderRegular.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-                viewHolderRegular.tvOverview = (TextView) convertView.findViewById(R.id.tvOverview);
+                ViewHolderRegular viewHolderRegular = new ViewHolderRegular(convertView);
 
                 showRegular(viewHolderRegular);
                 convertView.setTag(viewHolderRegular); // cache viewHolder for this item view
             } else {  // save view for POPULAR
-                ViewHolderPopular viewHolderPopular = new ViewHolderPopular();
                 convertView = inflater.inflate(R.layout.item_movie_popular, parent, false);
-
-                viewHolderPopular.ivImage = (ImageView) convertView.findViewById(R.id.ivMovieImage);
-                viewHolderPopular.ivButtonView = (ImageView) convertView.findViewById(R.id.ivButtonImage);
-                viewHolderPopular.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+                ViewHolderPopular viewHolderPopular = new ViewHolderPopular(convertView);
 
                 showPopular(viewHolderPopular);
                 convertView.setTag(viewHolderPopular); // cache viewHolder for this item view

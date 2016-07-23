@@ -18,6 +18,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.zekunwang.flickster.models.Movie;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 
@@ -26,17 +29,18 @@ public class MovieDetailActivity extends ActionBarActivity {
     int position;
     private final double RATIO = 1 / 4.0;
 
+    @BindView(R.id.ivButtonImage) ImageView ivButtonImage;
+    @BindView(R.id.ivMovieImage) ImageView ivImage;
+    @BindView(R.id.tvTitle) TextView tvTitle;
+    @BindView(R.id.tvReleaseDate) TextView tvReleaseDate;
+    @BindView(R.id.rbVote) RatingBar rbVote;
+    @BindView(R.id.tvOverview) TextView tvOverview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
-
-        ImageView ivButtonImage = (ImageView) findViewById(R.id.ivButtonImage);
-        ImageView ivImage = (ImageView) findViewById(R.id.ivMovieImage);
-        TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
-        TextView tvReleaseDate = (TextView) findViewById(R.id.tvReleaseDate);
-        RatingBar rbVote = (RatingBar) findViewById(R.id.rbVote);
-        TextView tvOverview = (TextView) findViewById(R.id.tvOverview);
+        ButterKnife.bind(this);
 
         // get width of current metric
         DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -80,14 +84,13 @@ public class MovieDetailActivity extends ActionBarActivity {
                     .placeholder(placeholderImage)
                     .into(ivImage);
         }
-        ivButtonImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MovieDetailActivity.this, YoutubeActivity.class);
-                intent.putExtra("position", position);
-                startActivity(intent);
-            }
-        });
+    }
+
+    @OnClick(R.id.ivButtonImage)
+    public void OnClickPopular(View v) {
+        Intent intent = new Intent(MovieDetailActivity.this, YoutubeActivity.class);
+        intent.putExtra("position", position);
+        startActivity(intent);
     }
 
     @Override

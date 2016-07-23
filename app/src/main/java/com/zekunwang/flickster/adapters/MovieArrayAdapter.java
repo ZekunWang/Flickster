@@ -143,10 +143,9 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
             widthRegular = (int)(width * RATIO_LANDSCAPE);
         }
 
-        //viewHolder.ivImage.setImageResource(placeholderImage);
         Picasso.with(getContext()).load(urlImage).resize(widthRegular, 0)
                 .placeholder(placeholderImage)
-                .transform(new RoundedCornersTransformation(10, 10))
+                .transform(new RoundedCornersTransformation(20, 0))
                 .into(viewHolderRegular.ivImage);
     }
 

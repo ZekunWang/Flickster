@@ -77,7 +77,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             //viewHolder.ivImage.setImageResource(placeholderImage);
             Picasso.with(this).load(urlImage).resize(widthRegular, 0)
                     .placeholder(placeholderImage)
-                    .transform(new RoundedCornersTransformation(10, 10))
+                    .transform(new RoundedCornersTransformation(20, 0))
                     .into(ivImage);
         } else {
             //viewHolder.ivImage.setImageResource(placeholderImage);

@@ -63,7 +63,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         drawablePortraitRegular = new BitmapDrawable(getContext().getResources(), Bitmap.createScaledBitmap(bitmapPortrait,
                 (int) (width * RATIO_PORTRAIT), (int) (width / 0.668 * RATIO_PORTRAIT), false));
     }
-
+    
     @Override
     public int getItemViewType(int position) {
         // decide returned view type according to vote of the movie

@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,7 +33,7 @@ import butterknife.OnItemClick;
 import cz.msebera.android.httpclient.Header;    // async http library
 
 
-public class MovieActivity extends ActionBarActivity {
+public class MovieActivity extends AppCompatActivity {
 
     static ArrayList<Movie> movies;
     MovieArrayAdapter movieAdapter;

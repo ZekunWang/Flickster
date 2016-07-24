@@ -9,10 +9,10 @@ Submitted by: Zekun Wang
 The following **required** functionality is completed:
 
 * [x] User can **scroll through current movies** from the Movie Database API
+* [x] Layout is optimized with the [ViewHolder](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView#improving-performance-with-the-viewholder-pattern) pattern.
 * [x] For each movie displayed, user can see the following details:
   * [x] Title, Poster Image, Overview (Portrait mode)
   * [x] Title, Backdrop Image, Overview (Landscape mode)
-* [x] Layout is optimized with the [ViewHolder](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView#improving-performance-with-the-viewholder-pattern) pattern.
 
 The following **optional** features are implemented:
 
@@ -28,13 +28,14 @@ The following **bonus** features are implemented:
     * [x] Overlay a play icon for videos that can be played.
     * [x] More popular movies should start a separate activity that plays the video immediately.
     * [x] Less popular videos rely on the detail page should show ratings and a YouTube preview.
+* [ ] Leverages the [data binding support module](http://guides.codepath.com/android/Applying-Data-Binding-for-Views) to bind data into layout templates.
 * [x] Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce boilerplate code.
 * [x] Apply rounded corners for the poster or background images using [Picasso transformations](https://guides.codepath.com/android/Displaying-Images-with-the-Picasso-Library#other-transformations)
 
 The following **additional** features are implemented:
 
 * [x] Customize content length with ellipsize and maxLines
-* [x] Implement consistent layout with all devices using calculation from device size and dp-to-px method
+* [x] Implement consistent layout with all devices using calculation from device size and dp-to-px conversion
 * [x] Customize actionbar with style and and sort modes
 * [x] Design app icon
 
